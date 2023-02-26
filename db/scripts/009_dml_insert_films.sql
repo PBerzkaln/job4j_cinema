@@ -1,25 +1,3 @@
-insert into files(name, path)
-values ('Forrest Gump', 'files/Forrest_Gump.jpeg');
-insert into files(name, path)
-values ('House of the Dragon', 'files/House_of_the_Dragon.jpeg');
-insert into files(name, path)
-values ('Pulp Fiction', 'files/Pulp_Fiction.jpeg');
-insert into files(name, path)
-values ('Raiders of the Lost ark', 'files/Raiders_of_the_Lost_ark');
-insert into files(name, path)
-values ('The Godfather', 'files/The_Godfather');
-
-insert into genres(name)
-values ('Комедийная драма');
-insert into genres(name)
-values ('Фэнтези');
-insert into genres(name)
-values ('Криминальный фильм');
-insert into genres(name)
-values ('Приключения');
-insert into genres(name)
-values ('Гангстерский фильм');
-
 insert into films(name, description, "year", genre_id, minimal_age, duration_in_minutes, file_id)
 values ('Форрест Гамп',
         'В центре действия фильма находится главный герой — Форрест Гамп ' ||
@@ -65,32 +43,10 @@ values ('Индиана Джонс: В поисках утраченного к�
         'и его оппонент, французский археолог Рене Беллок.',
         1981, 4, 6, 115, 4);
 insert into films(name, description, "year", genre_id, minimal_age, duration_in_minutes, file_id)
-values ('Крестные отец',
+values ('Крестный отец',
         'Считается величайшим гангстерским фильмом ' ||
         'по мнению Американского института киноискусства ' ||
         'и одним из лучших фильмов в истории кинематографа. ' ||
         'Стабильно входит в первую пятёрку 250 лучших фильмов ' ||
         'по версии веб-сайта IMDb (2-е место по состоянию на 12 января 2022 года).',
         1972, 5, 16, 175, 5);
-
-insert into halls(name, row_count, place_count, description)
-values ('Зал с пуфиками', 3, 15, 'Зал с мягкими пуфиками, большой экран, качественный звук.');
-insert into halls(name, row_count, place_count, description)
-values ('2D/3D', 6, 72, 'Стандартный кинозал с возможностью демонстрации фильмов в 2D и 3D форматах.');
-insert into halls(name, row_count, place_count, description)
-values ('IMAX', 4, 60,
-        'Кинозалы, оборудованные самой совершенной технологией кинопоказа IMAX, ' ||
-        'которая полностью погружает зрителя в происходящее на экране. ' ||
-        'Эффект присутствия создается благодаря огромному экрану, ' ||
-        'проекторам с кастомизированными линзами и особой геометрии зала.');
-
-insert into film_sessions(film_id, halls_id, start_time, end_time, price)
-values (1, 1, '2023-03-01 10:00:00', '2023-03-01 12:30:00', 250);
-insert into film_sessions(film_id, halls_id, start_time, end_time, price)
-values (2, 2, '2023-02-28 14:00:00', '2023-03-01 18:00:00', 450);
-insert into film_sessions(film_id, halls_id, start_time, end_time, price)
-values (3, 1, '2023-03-02 15:00:00', '2023-03-01 18:00:00', 250);
-insert into film_sessions(film_id, halls_id, start_time, end_time, price)
-values (4, 2, '2023-03-05 11:00:00', '2023-03-01 12:00:00', 350);
-insert into film_sessions(film_id, halls_id, start_time, end_time, price)
-values (5, 3, '2023-02-27 17:00:00', '2023-03-01 20:30:00', 750);
