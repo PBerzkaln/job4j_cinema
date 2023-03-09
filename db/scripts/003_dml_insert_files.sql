@@ -8,5 +8,3 @@ insert into files(name, path)
 values ('Raiders of the Lost ark', 'files/Raiders_of_the_Lost_ark.jpeg');
 insert into files(name, path)
 values ('The Godfather', 'files/The_Godfather.jpeg');
-insert into files(name, path)
-values ('logo', 'files/logo.png');
