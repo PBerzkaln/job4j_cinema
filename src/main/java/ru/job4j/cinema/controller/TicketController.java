@@ -46,8 +46,8 @@ public class TicketController {
                     ticket.getRowNumber(), ticket.getPlaceNumber()));
             return "redirect:/purchase_done";
         } catch (Exception exception) {
-            model.addAttribute("message", "Не удалось приобрести билет на заданное место. " +
-                    "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
+            model.addAttribute("message", "Не удалось приобрести билет на заданное место. "
+                    + "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
             return "errors/404";
         }
     }
