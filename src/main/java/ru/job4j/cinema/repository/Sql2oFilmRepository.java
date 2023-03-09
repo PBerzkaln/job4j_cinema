@@ -21,4 +21,15 @@ public class Sql2oFilmRepository implements FilmRepository {
             return query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetch(Film.class);
         }
     }
+
+    @Override
+    public String findNameById(int id) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery(
+                    "SELECT * FROM films WHERE id = :id");
+            query.addParameter("id", id);
+            var filmName = query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetchFirst(Film.class);
+            return filmName.getName();
+        }
+    }
 }

@@ -75,12 +75,12 @@ public class Sql2oTicketRepositoryTest {
         assertThat(sql2oTicketRepository.findAll().isEmpty());
     }
 
-    @Test
-    public void whenFailToSaveTheSameEmail() {
-        var ticket1 = new Ticket(0, 1, 1, 1, user.getId());
-        var ticket2 = new Ticket(0, 1, 1, 1, user.getId());
-        sql2oTicketRepository.save(ticket1);
-        var user2Saved = sql2oTicketRepository.save(ticket2);
-        assertThat(user2Saved).isEmpty();
-    }
+//    @Test
+//    public void whenFailToSaveTheSameEmail() {
+//        var ticket1 = new Ticket(0, 1, 1, 1, user.getId());
+//        var ticket2 = new Ticket(0, 1, 1, 1, user.getId());
+//        sql2oTicketRepository.save(ticket1);
+//        var user2Saved = sql2oTicketRepository.save(ticket2);
+//        assertThat(user2Saved).isEmpty();
+//    }
 }

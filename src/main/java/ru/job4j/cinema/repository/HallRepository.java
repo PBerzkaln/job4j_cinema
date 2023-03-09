@@ -6,4 +6,6 @@ import java.util.Collection;
 
 public interface HallRepository {
     Collection<Hall> findAll();
+    String findNameById(int id);
+    Hall findById(int id);
 }

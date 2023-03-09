@@ -21,4 +21,15 @@ public class Sql2oGenreRepository implements GenreRepository {
             return query.executeAndFetch(Genre.class);
         }
     }
+
+    @Override
+    public String findNameById(int id) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery(
+                    "SELECT * FROM genres WHERE id = :id");
+            query.addParameter("id", id);
+            var genreName = query.executeAndFetchFirst(Genre.class);
+            return genreName.getName();
+        }
+    }
 }

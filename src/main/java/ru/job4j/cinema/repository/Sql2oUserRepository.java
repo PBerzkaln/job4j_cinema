@@ -25,7 +25,7 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("full_name", user.getFullName())
                     .addParameter("email", user.getEmail())
                     .addParameter("password", user.getPassword());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
+            int generatedId = query.setColumnMappings(User.COLUMN_MAPPING).executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
             return Optional.of(user);
         } catch (Exception e) {

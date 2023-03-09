@@ -6,4 +6,6 @@ import java.util.Collection;
 
 public interface GenreRepository {
     Collection<Genre> findAll();
+
+    String findNameById(int id);
 }
