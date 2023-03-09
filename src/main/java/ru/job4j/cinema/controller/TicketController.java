@@ -33,6 +33,10 @@ public class TicketController {
             model.addAttribute("message", "Сеанс с указанным идентификатором не найден");
             return "errors/404";
         }
+//        int[] row = hallService.getRowCountInHallInSelectedSession(id);
+////        int[] place = hallService.getPlaceCountInRowInCurrentHall(id);
+//        model.addAttribute("row", row);
+//        model.addAttribute("place", place);
         model.addAttribute("films", scheduleService.findPreviewById(id).get());
         model.addAttribute("sessions", sessionOptional.get());
         return "tickets/buy";

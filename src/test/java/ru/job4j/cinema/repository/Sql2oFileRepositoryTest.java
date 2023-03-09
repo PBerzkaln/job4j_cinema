@@ -34,8 +34,8 @@ public class Sql2oFileRepositoryTest {
         var file1 = new File(1, "Forrest Gump", "files/Forrest_Gump.jpeg");
         var file2 = new File(2, "House of the Dragon", "files/House_of_the_Dragon.jpeg");
         var file3 = new File(3, "Pulp Fiction", "files/Pulp_Fiction.jpeg");
-        var file4 = new File(4, "Raiders of the Lost ark", "files/Raiders_of_the_Lost_ark");
-        var file5 = new File(5, "The Godfather", "files/The_Godfather");
+        var file4 = new File(4, "Raiders of the Lost ark", "files/Raiders_of_the_Lost_ark.jpeg");
+        var file5 = new File(5, "The Godfather", "files/The_Godfather.jpeg");
         var result = sql2oFileRepository.findAll();
         assertThat(result).isEqualTo(List.of(file1, file2, file3, file4, file5));
     }
