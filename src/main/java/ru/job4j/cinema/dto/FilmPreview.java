@@ -2,6 +2,7 @@ package ru.job4j.cinema.dto;
 
 public class FilmPreview {
     private int id;
+    private int fileId;
     private String name;
     private String description;
     private int year;
@@ -9,9 +10,10 @@ public class FilmPreview {
     private int durationInMinutes;
     private String genre;
 
-    public FilmPreview(int id, String name, String description, int year,
+    public FilmPreview(int id, int fileId, String name, String description, int year,
                        int minimalAge, int durationInMinutes, String genre) {
         this.id = id;
+        this.fileId = fileId;
         this.name = name;
         this.description = description;
         this.year = year;
@@ -26,6 +28,13 @@ public class FilmPreview {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileIdId(int id) {
+        this.id = fileId;
     }
 
     public String getName() {

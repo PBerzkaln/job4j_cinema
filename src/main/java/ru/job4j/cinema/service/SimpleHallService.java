@@ -20,11 +20,7 @@ public class SimpleHallService implements HallService {
 
     @Override
     public Collection<Hall> findAll() {
-        return sql2oHallRepository.findAll()
-                .stream()
-                .map(h -> new Hall(h.getId(), h.getRowCount(), h.getPlaceCount(),
-                        h.getName(), h.getDescription()))
-                .toList();
+        return sql2oHallRepository.findAll();
     }
 
     @Override
@@ -34,6 +30,7 @@ public class SimpleHallService implements HallService {
 
     public int[] getRowCountInHallInSelectedSession(int id) {
         return IntStream.rangeClosed(1, sql2oHallRepository.findById(id).getRowCount()).toArray();
+
     }
 
     public int[] getPlaceCountInRowInCurrentHall(int id) {

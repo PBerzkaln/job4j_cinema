@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.service.HallService;
 import ru.job4j.cinema.service.ScheduleService;
-import ru.job4j.cinema.service.SimpleTicketService;
 import ru.job4j.cinema.service.TicketService;
-
-import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/buy")
@@ -33,6 +30,8 @@ public class TicketController {
             model.addAttribute("message", "Сеанс с указанным идентификатором не найден");
             return "errors/404";
         }
+        model.addAttribute("row", hallService.getRowCountInHallInSelectedSession(id));
+        model.addAttribute("place", hallService.getPlaceCountInRowInCurrentHall(id));
         model.addAttribute("films", scheduleService.findPreviewById(id).get());
         model.addAttribute("sessions", sessionOptional.get());
         return "tickets/buy";
@@ -40,15 +39,17 @@ public class TicketController {
 
     @PostMapping("/buy_ticket")
     public String create(@ModelAttribute Ticket ticket, Model model) {
-        try {
-            ticketService.save(ticket);
-            model.addAttribute("message", String.format("Вы успешно приобрели билет на %s ряд %s место",
-                    ticket.getRowNumber(), ticket.getPlaceNumber()));
-            return "redirect:/purchase_done";
-        } catch (Exception exception) {
-            model.addAttribute("message", "Не удалось приобрести билет на заданное место. "
-                    + "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
+        var savedTicket = ticketService.save(ticket);
+        if (savedTicket.isEmpty()) {
+            model.addAttribute("message",
+                    String.format("Не удалось приобрести билет на %s ряд %s место, %s%s ",
+                            ticket.getRowNumber(), ticket.getPlaceNumber(),
+                            "вероятно оно уже занято. ",
+                            "Перейдите на страницу бронирования билетов и попробуйте снова."));
             return "errors/404";
         }
+        model.addAttribute("message", String.format("Вы успешно приобрели билет на %s ряд %s место",
+                savedTicket.get().getRowNumber(), savedTicket.get().getPlaceNumber()));
+        return "tickets/purchaseDone";
     }
 }
