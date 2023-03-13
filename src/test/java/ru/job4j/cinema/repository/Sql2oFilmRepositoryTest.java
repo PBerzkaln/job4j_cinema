@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import ru.job4j.cinema.model.Film;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.random.RandomGenerator;
 
 public class Sql2oFilmRepositoryTest {
     private static Sql2oFilmRepository sql2oFilmRepository;
@@ -84,5 +86,24 @@ public class Sql2oFilmRepositoryTest {
                 .append("по версии веб-сайта IMDb (2-е место по состоянию на 12 января 2022 года).").toString());
         var result = sql2oFilmRepository.findAll();
         assertThat(result).isEqualTo(List.of(film1, film2, film3, film4, film5));
+    }
+
+    @Test
+    public void whenFindById() {
+        var film1 = new Film(5, 1972, 5, 16, 175, 5,
+                "Крестный отец", new StringBuilder()
+                .append("Считается величайшим гангстерским фильмом ")
+                .append("по мнению Американского института киноискусства ")
+                .append("и одним из лучших фильмов в истории кинематографа. ")
+                .append("Стабильно входит в первую пятёрку 250 лучших фильмов ")
+                .append("по версии веб-сайта IMDb (2-е место по состоянию на 12 января 2022 года).").toString());
+        var result = sql2oFilmRepository.findById(film1.getId()).get();
+        assertThat(result).isEqualTo(film1);
+    }
+
+    @Test
+    public void whenNotFindById() {
+        assertThat(sql2oFilmRepository.findById(
+                RandomGenerator.getDefault().nextInt(100, 150))).isEqualTo(empty());
     }
 }

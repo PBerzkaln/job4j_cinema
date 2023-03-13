@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import ru.job4j.cinema.model.Genre;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.random.RandomGenerator;
 
 public class Sql2oGenreRepositoryTest {
     private static Sql2oGenreRepository sql2oGenreRepository;
@@ -38,5 +40,18 @@ public class Sql2oGenreRepositoryTest {
         var genre5 = new Genre(5, "Гангстерский фильм");
         var result = sql2oGenreRepository.findAll();
         assertThat(result).isEqualTo(List.of(genre1, genre2, genre3, genre4, genre5));
+    }
+
+    @Test
+    public void whenFindById() {
+        var genre1 = new Genre(1, "Комедийная драма");
+        var result = sql2oGenreRepository.findById(genre1.getId()).get();
+        assertThat(result).isEqualTo(genre1);
+    }
+
+    @Test
+    public void whenNotFindById() {
+        assertThat(sql2oGenreRepository.findById(
+                RandomGenerator.getDefault().nextInt(100, 150))).isEqualTo(empty());
     }
 }

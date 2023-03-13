@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface FilmSessionRepository {
     Collection<FilmSession> findAll();
-    FilmSession findById(int id);
+    Optional<FilmSession> findById(int id);
 }

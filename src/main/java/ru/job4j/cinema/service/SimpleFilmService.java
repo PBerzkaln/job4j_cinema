@@ -26,7 +26,7 @@ public class SimpleFilmService implements FilmService {
                 .map(f -> new FilmPreview(
                         f.getId(), f.getFileId(), f.getName(), f.getDescription(), f.getYear(),
                         f.getMinimalAge(), f.getDurationInMinutes(),
-                        sql2oGenreRepository.findNameById(f.getGenreId())))
+                        sql2oGenreRepository.findById(f.getGenreId()).get().getName()))
                 .toList();
     }
 }

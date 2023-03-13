@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import ru.job4j.cinema.model.Hall;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.random.RandomGenerator;
 
 public class Sql2oHallRepositoryTest {
     private static Sql2oHallRepository sql2oHallRepository;
@@ -42,5 +44,19 @@ public class Sql2oHallRepositoryTest {
                         .append("проекторам с кастомизированными линзами и особой геометрии зала.").toString());
         var result = sql2oHallRepository.findAll();
         assertThat(result).isEqualTo(List.of(hall1, hall2, hall3));
+    }
+
+    @Test
+    public void whenFindById() {
+        var hall1 = new Hall(1, 3, 15, "Зал с пуфиками",
+                "Зал с мягкими пуфиками, большой экран, качественный звук.");
+        var result = sql2oHallRepository.findById(hall1.getId()).get();
+        assertThat(result).isEqualTo(hall1);
+    }
+
+    @Test
+    public void whenNotFindById() {
+        assertThat(sql2oHallRepository.findById(
+                RandomGenerator.getDefault().nextInt(100, 150))).isEqualTo(empty());
     }
 }

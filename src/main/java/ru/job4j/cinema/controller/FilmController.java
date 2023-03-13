@@ -12,7 +12,6 @@ import ru.job4j.cinema.service.FilmService;
 public class FilmController {
     private final FilmService filmService;
 
-
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
     }

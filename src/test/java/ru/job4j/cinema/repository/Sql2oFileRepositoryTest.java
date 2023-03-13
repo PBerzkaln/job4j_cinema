@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import ru.job4j.cinema.model.File;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.random.RandomGenerator;
 
 public class Sql2oFileRepositoryTest {
     private static Sql2oFileRepository sql2oFileRepository;
@@ -38,5 +40,18 @@ public class Sql2oFileRepositoryTest {
         var file5 = new File(5, "The Godfather", "files/The_Godfather.jpeg");
         var result = sql2oFileRepository.findAll();
         assertThat(result).isEqualTo(List.of(file1, file2, file3, file4, file5));
+    }
+
+    @Test
+    public void whenFindById() {
+        var file1 = new File(1, "Forrest Gump", "files/Forrest_Gump.jpeg");
+        var result = sql2oFileRepository.findById(file1.getId()).get();
+        assertThat(result).isEqualTo(file1);
+    }
+
+    @Test
+    public void whenNotFindById() {
+        assertThat(sql2oFileRepository.findById(
+                RandomGenerator.getDefault().nextInt(100, 150))).isEqualTo(empty());
     }
 }

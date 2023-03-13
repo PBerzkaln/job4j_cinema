@@ -25,16 +25,16 @@ public class SimpleHallService implements HallService {
 
     @Override
     public Optional<Hall> findById(int id) {
-        return Optional.ofNullable(sql2oHallRepository.findById(id));
+        return Optional.ofNullable(sql2oHallRepository.findById(id).get());
     }
 
     public int[] getRowCountInHallInSelectedSession(int id) {
-        return IntStream.rangeClosed(1, sql2oHallRepository.findById(id).getRowCount()).toArray();
+        return IntStream.rangeClosed(1, sql2oHallRepository.findById(id).get().getRowCount()).toArray();
 
     }
 
     public int[] getPlaceCountInRowInCurrentHall(int id) {
-        return IntStream.rangeClosed(1, sql2oHallRepository.findById(id).getPlaceCount()
-                / sql2oHallRepository.findById(id).getRowCount()).toArray();
+        return IntStream.rangeClosed(1, sql2oHallRepository.findById(id).get().getPlaceCount()
+                / sql2oHallRepository.findById(id).get().getRowCount()).toArray();
     }
 }

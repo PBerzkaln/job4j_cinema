@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -10,6 +11,7 @@ import ru.job4j.cinema.model.FilmSession;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
+import java.util.random.RandomGenerator;
 
 public class Sql2oFilmSessionRepositoryTest {
     private static Sql2oFilmSessionRepository sql2oFilmSessionRepository;
@@ -44,5 +46,19 @@ public class Sql2oFilmSessionRepositoryTest {
                 LocalDateTime.parse("2023-02-27T17:00:00"), LocalDateTime.parse("2023-03-01T20:30:00"));
         var result = sql2oFilmSessionRepository.findAll();
         assertThat(result).isEqualTo(List.of(filmSession1, filmSession2, filmSession3, filmSession4, filmSession5));
+    }
+
+    @Test
+    public void whenFindById() {
+        var filmSession1 = new FilmSession(1, 1, 1, 250,
+                LocalDateTime.parse("2023-03-01T10:00:00"), LocalDateTime.parse("2023-03-01T12:30:00"));
+        var result = sql2oFilmSessionRepository.findById(filmSession1.getId()).get();
+        assertThat(result).isEqualTo(filmSession1);
+    }
+
+    @Test
+    public void whenNotFindById() {
+        assertThat(sql2oFilmSessionRepository.findById(
+                RandomGenerator.getDefault().nextInt(100, 150))).isEqualTo(empty());
     }
 }

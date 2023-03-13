@@ -29,21 +29,21 @@ public class SimpleScheduleService implements ScheduleService {
         return sql2oFilmSessionRepository.findAll()
                 .stream()
                 .map(s -> new SchedulePreview(s.getId(), s.getPrice(), s.getStartTime(),
-                        s.getEndTime(), sql2oFilmRepository.findNameById(s.getFilmId()),
-                        sql2oHallRepository.findNameById(s.getHallsId())))
+                        s.getEndTime(), sql2oFilmRepository.findById(s.getFilmId()).get().getName(),
+                        sql2oHallRepository.findById(s.getHallsId()).get().getName()))
                 .toList();
     }
 
     @Override
     public Optional<FilmSession> findSessionById(int id) {
-        return Optional.ofNullable(sql2oFilmSessionRepository.findById(id));
+        return Optional.ofNullable(sql2oFilmSessionRepository.findById(id).get());
     }
 
     @Override
     public Optional<SchedulePreview> findPreviewById(int id) {
         var session = sql2oFilmSessionRepository.findById(id);
-        return Optional.of(new SchedulePreview(id, session.getPrice(), session.getStartTime(),
-                session.getEndTime(), sql2oFilmRepository.findNameById(session.getFilmId()),
-                sql2oHallRepository.findNameById(session.getHallsId())));
+        return Optional.of(new SchedulePreview(id, session.get().getPrice(), session.get().getStartTime(),
+                session.get().getEndTime(), sql2oFilmRepository.findById(session.get().getFilmId()).get().getName(),
+                sql2oHallRepository.findById(session.get().getHallsId()).get().getName()));
     }
 }
